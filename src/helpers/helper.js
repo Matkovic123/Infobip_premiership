@@ -20,7 +20,7 @@ export const createOptionsForSelect = (rounds) => {
 };
 
 export const createStatistics = (rounds) => {
-    let clubsArray = [];
+    let clubsStats = [];
     let clubNames = [];
     rounds[0].matches.forEach((match) => {
         const names = Object.keys(match);
@@ -30,14 +30,26 @@ export const createStatistics = (rounds) => {
     });
 
     clubNames.forEach(club => {
-        let nrOfMatches, matchesStats, scoreStats, goals, nets, goalDiff, points;
+        let nrOfMatches, matchesStats, scoreStats, points;
         nrOfMatches = rounds.length;
         matchesStats = calculateMatchesStats(club, rounds);
         scoreStats = calculateScoreStats(club, rounds);
         points = matchesStats.won * 3 + matchesStats.draws;
-        console.log(club, points);
+        clubsStats.push({
+            name: club,
+            nrOfMatches: nrOfMatches,
+            wins: matchesStats.won,
+            loses: matchesStats.lost,
+            draws: matchesStats.draws,
+            goals: scoreStats.goals,
+            nets: scoreStats.nets,
+            goalDiff: scoreStats.goalDiff,
+            points: points
+        })
     });
-    return clubsArray;
+    clubsStats.sort(compareClubs);
+    console.log(clubsStats);
+    return clubsStats;
 };
 
 const calculateMatchesStats = (club, rounds) => {
@@ -74,6 +86,7 @@ const calculateMatchesStats = (club, rounds) => {
     });
     return {won: wins, lost: loses, draws: draws};
 };
+
 const calculateScoreStats = (club, rounds) => {
     let goals = 0;
     let nets = 0;
@@ -90,14 +103,31 @@ const calculateScoreStats = (club, rounds) => {
                 nets += clubsGoals[0];
             }
         })
-    })
+    });
     return {goals: goals, nets: nets, goalDiff: (goals - nets)}
 };
-const calculatePoints =(matchesStats) => {
-    console.log(matchesStats);
-    let points = 0;
 
+const compareClubs = (a, b) => {{
+        if (a.points < b.points)
+            return 1;
+        if (a.points > b.points)
+            return -1;
+        if ( a.points === b.points){
+            if (a.goalDiff < b.goalDiff)
+                return 1;
+            if (a.goalDiff > b.goalDiff)
+                return -1;
+            if(a.goalDiff === b.goalDiff){
+                if (a.goals < b.goals)
+                    return 1;
+                if (a.goals > b.goals)
+                    return -1;
+            }
+        }
+        return 0;
+    }
 };
+
 
 // matchStatisticsObject = {//
 //     clubName: 'Lionheart',

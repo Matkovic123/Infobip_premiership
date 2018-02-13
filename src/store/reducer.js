@@ -16,7 +16,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 rounds: action.payload.rounds,
                 matches: action.payload.matches,
-                selectOptions: action.payload.selectOptions
+                selectOptions: action.payload.selectOptions,
+                clubsStatistics: action.payload.clubsStatistics
             };
         case (actions.CHANGED_ROUND):
             const parsedMatches = parseMatchesForRound(state.rounds[action.payload - 1]);

@@ -18,21 +18,13 @@ class Premiership extends React.Component {
                 const selectOptions = createOptionsForSelect(response.data);
                 const clubsStatistics = createStatistics(response.data.slice(0, this.props.round));
                 this.props.gotData({
-                    rounds: response.data,
+                    round: response.data.length,
                     matches: parsedMatches,
                     selectOptions: selectOptions,
                     clubsStatistics: clubsStatistics
                 });
             })
     }
-
-    onSelectedNewRound = (selectedOption) => {
-        this.setState({
-            ...this.props,
-            round: selectedOption,
-            matches: parseMatchesForRound(this.props.rounds[selectedOption.value - 1])
-        });
-    };
 
     render() {
         return (
@@ -55,7 +47,7 @@ class Premiership extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
-                        <RoundStatistics statistics={this.props.clubsStatistics}/>
+                        <RoundStatistics clubsStatistics={this.props.clubsStatistics}/>
                     </div>
                 </div>
             </div>
@@ -68,7 +60,9 @@ const mapStateToProps = state => {
         rounds: state.rounds,
         round: state.round,
         matches: state.matches,
-        selectOptions: state.selectOptions
+        selectOptions: state.selectOptions,
+        clubsStatistics: state.clubsStatistics
+
     };
 };
 
@@ -76,7 +70,6 @@ const mapDispatchToProps = dispatch => {
     return {
         gotData: (data) => dispatch({type: actions.GOT_DATA, payload: data}),
         onChangedRound: (selectedOption) => dispatch({type: actions.CHANGED_ROUND, payload: selectedOption.value})
-
     };
 };
 
