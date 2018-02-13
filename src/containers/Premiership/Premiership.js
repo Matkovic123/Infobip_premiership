@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import RoundResults from "../../components/RoundResults/RoundResults";
 import RoundStatistics from "../../components/RoundStatistics/RoundStatistics";
-import {createOptionsForSelect, parseMatchesForRound} from "../../helpers/helper";
+import {createOptionsForSelect, createStatistics, parseMatchesForRound} from "../../helpers/helper";
 import * as actions from "../../store/actions";
 
 
@@ -16,10 +16,12 @@ class Premiership extends React.Component {
             .then(response => {
                 const parsedMatches = parseMatchesForRound(response.data[this.props.round - 1]);
                 const selectOptions = createOptionsForSelect(response.data);
+                const clubsStatistics = createStatistics(response.data.slice(0, this.props.round));
                 this.props.gotData({
                     rounds: response.data,
                     matches: parsedMatches,
-                    selectOptions: selectOptions
+                    selectOptions: selectOptions,
+                    clubsStatistics: clubsStatistics
                 });
             })
     }
@@ -53,7 +55,7 @@ class Premiership extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
-                        <RoundStatistics/>
+                        <RoundStatistics statistics={this.props.clubsStatistics}/>
                     </div>
                 </div>
             </div>

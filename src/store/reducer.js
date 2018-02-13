@@ -3,9 +3,10 @@ import * as actions from '../store/actions';
 const initialState = {
         rounds: [],
         //TODO: postaviti ovaj broj dinamički
-        round: 38,
+        round: 2,
         matches: [],
-        selectOptions: []
+        selectOptions: [],
+        clubsStatistics: []
 };
 
 const reducer = (state = initialState, action) => {
