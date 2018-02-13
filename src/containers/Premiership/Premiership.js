@@ -1,26 +1,22 @@
 import React from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 import RoundResults from "../../components/RoundResults/RoundResults";
 import RoundStatistics from "../../components/RoundStatistics/RoundStatistics";
 import {createOptionsForSelect, parseMatchesForRound} from "../../helpers/helper";
+import * as actions from "../../store/actions";
 
 
 class Premiership extends React.Component {
-    state = {
-        rounds: [],
-        round: 38,
-        matches: [],
-        selectOptions: []
-    };
 
     componentDidMount() {
         axios.get('http://localhost:3000/premiership.json')
             .then(response => {
-                const parsedMatches = parseMatchesForRound(response.data[this.state.round - 1]);
+                const parsedMatches = parseMatchesForRound(response.data[this.props.round - 1]);
                 const selectOptions = createOptionsForSelect(response.data);
-                this.setState({
+                this.props.gotData({
                     rounds: response.data,
                     matches: parsedMatches,
                     selectOptions: selectOptions
@@ -30,9 +26,9 @@ class Premiership extends React.Component {
 
     onSelectedNewRound = (selectedOption) => {
         this.setState({
-            ...this.state,
+            ...this.props,
             round: selectedOption,
-             matches: parseMatchesForRound(this.state.rounds[selectedOption.value-1])
+            matches: parseMatchesForRound(this.props.rounds[selectedOption.value - 1])
         });
     };
 
@@ -43,16 +39,16 @@ class Premiership extends React.Component {
                     <div className="col-lg-4">
                         <Select
                             name="Select round"
-                            value={this.state.round}
-                            onChange={this.onSelectedNewRound}
-                            options={this.state.selectOptions}
+                            value={this.props.round}
+                            onChange={this.props.onChangedRound}
+                            options={this.props.selectOptions}
                             clearable={false}
                         />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-lg-6">
-                        <RoundResults matches={this.state.matches}/>
+                        <RoundResults matches={this.props.matches}/>
                     </div>
                 </div>
                 <div className="row">
@@ -65,4 +61,21 @@ class Premiership extends React.Component {
     }
 }
 
-export default Premiership;
+const mapStateToProps = state => {
+    return {
+        rounds: state.rounds,
+        round: state.round,
+        matches: state.matches,
+        selectOptions: state.selectOptions
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        gotData: (data) => dispatch({type: actions.GOT_DATA, payload: data}),
+        onChangedRound: (selectedOption) => dispatch({type: actions.CHANGED_ROUND, payload: selectedOption.value})
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Premiership);

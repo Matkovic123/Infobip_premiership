@@ -19,3 +19,8 @@ export const createOptionsForSelect = (rounds) => {
     }
     return optionsArray;
 };
+
+export const parseRound = (roundObject) => {
+
+
+};
