@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import Premiership from "./containers/Premiership/Premiership";
 
@@ -14,9 +13,7 @@ class App extends Component {
                             <h2>Premiership 2016/2017</h2>
                         </div>
                         <div className="panel-body">
-                            <Select/>
                             <Premiership/>
-
                         </div>
                     </div>
                 </div>
