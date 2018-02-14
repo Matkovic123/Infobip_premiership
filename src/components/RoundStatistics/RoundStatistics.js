@@ -9,7 +9,7 @@ const RoundStatistics = (props) => (
                     <li key={clubStats.name}
                         className="list-group-item"
                     >
-                        <h2>{index+1}. {clubStats.name}</h2>
+                        <h2>{index + 1}. {clubStats.name}</h2>
                         <br/>
                         <h4>Points: {clubStats.points}</h4>
                         Out of {clubStats.nrOfMatches} played games, {clubStats.name} won {clubStats.wins} games
@@ -17,8 +17,7 @@ const RoundStatistics = (props) => (
                         drew {clubStats.draws} games, <br/>
                         scored {clubStats.goals} goals, received {clubStats.nets} goals, and had {clubStats.goalDiff}
                         &nbsp;goal(s) difference <br/>
-                        Last 5 matches: {clubStats.lastFiveMatches.map(status => status+' ')}
-
+                        Last {clubStats.lastFiveMatches.length} matches: {clubStats.lastFiveMatches.map(status => status + ', ')}
                     </li>
                 )
             })}

@@ -9,8 +9,10 @@ const RoundResults = (props) => (
                     <li key={match.homeTeam}
                         className="list-group-item"
                     >
-                        {match.homeTeam} {match.homeTeamScore} :&nbsp;
-                        {match.opponentTeam} {match.opponentTeamScore}
+                        <h4>
+                            {match.homeTeam} {match.homeTeamScore} :&nbsp;
+                            {match.opponentTeam} {match.opponentTeamScore}
+                        </h4>
                     </li>
                 )
             })}

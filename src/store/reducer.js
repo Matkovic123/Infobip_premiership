@@ -23,7 +23,6 @@ const reducer = (state = initialState, action) => {
             const parsedMatches = parseMatchesForRound(state.rounds[action.payload - 1]);
             const currentRounds = state.rounds.slice(0, action.payload);
             const newStatistics = createStatistics(currentRounds);
-            debugger;
             return {
                 ...state,
                 round: action.payload,

@@ -65,34 +65,34 @@ const calculateMatchesStats = (club, rounds) => {
             if (playingClubs.indexOf(club) === 0) {
                 if (clubsGoals[0] > clubsGoals[1]) {
                     wins++;
-                    lastFiveMatches.push('W');
+                    lastFiveMatches.push('Won');
                 }
                 else if (clubsGoals[0] < clubsGoals[1]) {
                     loses++;
-                    lastFiveMatches.push('L');
+                    lastFiveMatches.push('Lost');
                 }
                 else {
                     draws++;
-                    lastFiveMatches.push('D');
+                    lastFiveMatches.push('Draw');
                 }
             }
             else if (playingClubs.indexOf(club) === 1) {
                 if (clubsGoals[1] > clubsGoals[0]) {
                     wins++;
-                    lastFiveMatches.push('W');
+                    lastFiveMatches.push('Won');
                 }
                 else if (clubsGoals[1] < clubsGoals[0]) {
                     loses++;
-                    lastFiveMatches.push('L');
+                    lastFiveMatches.push('Lost');
                 }
                 else {
                     draws++;
-                    lastFiveMatches.push('D');
+                    lastFiveMatches.push('Draw');
                 }
             }
         })
     });
-    lastFiveMatches = lastFiveMatches.slice(0,5);
+    lastFiveMatches = lastFiveMatches.slice(0, 5);
     return {won: wins, lost: loses, draws: draws, lastFiveMatches: lastFiveMatches};
 };
 
@@ -117,23 +117,22 @@ const calculateScoreStats = (club, rounds) => {
 };
 
 const compareClubs = (a, b) => {
-    {
-        if (a.points < b.points)
+    if (a.points < b.points)
+        return 1;
+    else if (a.points > b.points)
+        return -1;
+    else if (a.points === b.points) {
+        if (a.goalDiff < b.goalDiff)
             return 1;
-        else if (a.points > b.points)
+        else if (a.goalDiff > b.goalDiff)
             return -1;
-        else if (a.points === b.points) {
-            if (a.goalDiff < b.goalDiff)
+        else if (a.goalDiff === b.goalDiff) {
+            if (a.goals < b.goals)
                 return 1;
-            else if (a.goalDiff > b.goalDiff)
+            else if (a.goals > b.goals)
                 return -1;
-            else if (a.goalDiff === b.goalDiff) {
-                if (a.goals < b.goals)
-                    return 1;
-                else if (a.goals > b.goals)
-                    return -1;
-            }
         }
-        return 0;
     }
+    return 0;
+
 };
