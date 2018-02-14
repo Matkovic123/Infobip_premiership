@@ -18,11 +18,12 @@ class Premiership extends React.Component {
                 const selectOptions = createOptionsForSelect(response.data);
                 const clubsStatistics = createStatistics(response.data.slice(0, this.props.round));
                 this.props.gotData({
-                    round: response.data.length,
+                    rounds: response.data,
                     matches: parsedMatches,
                     selectOptions: selectOptions,
                     clubsStatistics: clubsStatistics
                 });
+                this.props.onChangedRound({value: response.data.length})
             })
     }
 
@@ -62,7 +63,6 @@ const mapStateToProps = state => {
         matches: state.matches,
         selectOptions: state.selectOptions,
         clubsStatistics: state.clubsStatistics
-
     };
 };
 

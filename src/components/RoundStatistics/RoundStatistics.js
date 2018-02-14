@@ -9,8 +9,12 @@ const RoundStatistics = (props) => (
                     <li key={clubStats.name}
                         className="list-group-item"
                     >
+                        <h4>Points: {clubStats.points}</h4>
                         {clubStats.name} won {clubStats.wins} games, lost {clubStats.loses} games,
-                        drew {clubStats.draws} games.
+                        drew {clubStats.draws} games. <br/>
+                        Scored {clubStats.goals} goals, received {clubStats.nets} goals, and had {clubStats.goalDiff}
+                        goal difference
+
                     </li>
                 )
             })}

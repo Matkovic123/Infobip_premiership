@@ -107,20 +107,21 @@ const calculateScoreStats = (club, rounds) => {
     return {goals: goals, nets: nets, goalDiff: (goals - nets)}
 };
 
-const compareClubs = (a, b) => {{
+const compareClubs = (a, b) => {
+    {
         if (a.points < b.points)
             return 1;
-        if (a.points > b.points)
+        else if (a.points > b.points)
             return -1;
-        if ( a.points === b.points){
+        else if (a.points === b.points) {
             if (a.goalDiff < b.goalDiff)
                 return 1;
-            if (a.goalDiff > b.goalDiff)
+            else if (a.goalDiff > b.goalDiff)
                 return -1;
-            if(a.goalDiff === b.goalDiff){
+            else if (a.goalDiff === b.goalDiff) {
                 if (a.goals < b.goals)
                     return 1;
-                if (a.goals > b.goals)
+                else if (a.goals > b.goals)
                     return -1;
             }
         }

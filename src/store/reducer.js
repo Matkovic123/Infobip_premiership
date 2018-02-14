@@ -1,9 +1,8 @@
-import {parseMatchesForRound} from "../helpers/helper";
+import {createStatistics, parseMatchesForRound} from "../helpers/helper";
 import * as actions from '../store/actions';
 const initialState = {
         rounds: [],
-        //TODO: postaviti ovaj broj dinamički
-        round: 2,
+        round: 1,
         matches: [],
         selectOptions: [],
         clubsStatistics: []
@@ -21,10 +20,14 @@ const reducer = (state = initialState, action) => {
             };
         case (actions.CHANGED_ROUND):
             const parsedMatches = parseMatchesForRound(state.rounds[action.payload - 1]);
+            const currentRounds = state.rounds.slice(0, action.payload);
+            const newStatistics = createStatistics(currentRounds);
+            debugger;
             return {
                 ...state,
                 round: action.payload,
-                matches: parsedMatches
+                matches: parsedMatches,
+                clubsStatistics: newStatistics
             };
         default: return state;
     }
