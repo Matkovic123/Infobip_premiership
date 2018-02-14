@@ -2,7 +2,7 @@ import React from 'react';
 
 const RoundStatistics = (props) => (
     <div>
-        <h2>Round Statistics</h2>
+        <h2>Rounds Statistics</h2>
         <ul className="list-group">
             {props.clubsStatistics.map((clubStats, index) => {
                 return (
@@ -17,7 +17,7 @@ const RoundStatistics = (props) => (
                         drew {clubStats.draws} games, <br/>
                         scored {clubStats.goals} goals, received {clubStats.nets} goals, and had {clubStats.goalDiff}
                         &nbsp;goal(s) difference <br/>
-                        Last {clubStats.lastFiveMatches.length} matches: {clubStats.lastFiveMatches.map(status => status + ', ')}
+                        Last {clubStats.lastFiveMatches.length} matches: {clubStats.lastFiveMatches.map(status => status + ' ')}
                     </li>
                 )
             })}

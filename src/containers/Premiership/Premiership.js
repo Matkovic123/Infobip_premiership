@@ -8,7 +8,6 @@ import RoundStatistics from "../../components/RoundStatistics/RoundStatistics";
 import {createOptionsForSelect, createStatistics, parseMatchesForRound} from "../../helpers/helper";
 import * as actions from "../../store/actions";
 
-
 class Premiership extends React.Component {
 
     componentDidMount() {
@@ -31,19 +30,19 @@ class Premiership extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-lg-4">
-                        <Select
-                            name="Select round"
-                            value={this.props.round}
-                            onChange={this.props.onChangedRound}
-                            options={this.props.selectOptions}
-                            clearable={false}
-                        />
-                    </div>
-                </div>
-                <div className="row">
                     <div className="col-lg-6">
-                        <RoundResults matches={this.props.matches}/>
+                        <div className="row">
+                            <div className="col-lg-8">
+                                <Select
+                                    name="Select round"
+                                    value={this.props.round}
+                                    onChange={this.props.onChangedRound}
+                                    options={this.props.selectOptions}
+                                    clearable={false}
+                                />
+                            </div>
+                        </div>
+                        <RoundResults style={roundResultsStyle} matches={this.props.matches}/>
                     </div>
                     <div className="col-lg-6">
                         <RoundStatistics clubsStatistics={this.props.clubsStatistics}/>
@@ -72,3 +71,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Premiership);
+
+const roundResultsStyle = {};
