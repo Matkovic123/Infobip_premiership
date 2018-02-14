@@ -16,7 +16,8 @@ const RoundStatistics = (props) => (
                         , lost {clubStats.loses} games,
                         drew {clubStats.draws} games, <br/>
                         scored {clubStats.goals} goals, received {clubStats.nets} goals, and had {clubStats.goalDiff}
-                        &nbsp;goal(s) difference
+                        &nbsp;goal(s) difference <br/>
+                        Last 5 matches: {clubStats.lastFiveMatches.map(status => status+' ')}
 
                     </li>
                 )

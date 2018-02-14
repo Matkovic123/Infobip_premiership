@@ -39,6 +39,7 @@ export const createStatistics = (rounds) => {
             name: club,
             nrOfMatches: nrOfMatches,
             wins: matchesStats.won,
+            lastFiveMatches: matchesStats.lastFiveMatches,
             loses: matchesStats.lost,
             draws: matchesStats.draws,
             goals: scoreStats.goals,
@@ -56,6 +57,7 @@ const calculateMatchesStats = (club, rounds) => {
     let wins = 0;
     let loses = 0;
     let draws = 0;
+    let lastFiveMatches = [];
     rounds.forEach(round => {
         round.matches.forEach(match => {
             let playingClubs = Object.keys(match);
@@ -63,28 +65,35 @@ const calculateMatchesStats = (club, rounds) => {
             if (playingClubs.indexOf(club) === 0) {
                 if (clubsGoals[0] > clubsGoals[1]) {
                     wins++;
+                    lastFiveMatches.push('W');
                 }
                 else if (clubsGoals[0] < clubsGoals[1]) {
                     loses++;
+                    lastFiveMatches.push('L');
                 }
                 else {
                     draws++;
+                    lastFiveMatches.push('D');
                 }
             }
-            if (playingClubs.indexOf(club) === 1) {
+            else if (playingClubs.indexOf(club) === 1) {
                 if (clubsGoals[1] > clubsGoals[0]) {
                     wins++;
+                    lastFiveMatches.push('W');
                 }
                 else if (clubsGoals[1] < clubsGoals[0]) {
                     loses++;
+                    lastFiveMatches.push('L');
                 }
                 else {
                     draws++;
+                    lastFiveMatches.push('D');
                 }
             }
         })
     });
-    return {won: wins, lost: loses, draws: draws};
+    lastFiveMatches = lastFiveMatches.slice(0,5);
+    return {won: wins, lost: loses, draws: draws, lastFiveMatches: lastFiveMatches};
 };
 
 const calculateScoreStats = (club, rounds) => {
