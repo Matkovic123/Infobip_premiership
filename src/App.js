@@ -18,7 +18,7 @@ class App extends Component {
                                         <h1 className="text-center">English football premiership of 2016/2017</h1>
                                     </div>
                                     <div className="col-md-4">
-                                        <img alt="" className="img-responsive img-rounded text-center" src={logo}/>
+                                        <img alt="" className="img-responsive img-rounded" src={logo}/>
                                     </div>
                                 </div>
                             </div>
