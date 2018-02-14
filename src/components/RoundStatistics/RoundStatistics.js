@@ -39,9 +39,9 @@ const RoundStatistics = (props) => (
                             }
                         </div>
                         <p>Scored {clubStats.goals} goals</p>
-                        <p> Received {clubStats.nets} goals</p>
-                        <p>and had {clubStats.goalDiff} goal(s) difference</p>
-                        <p>Last {clubStats.lastFiveMatches.length}
+                        <p>Received {clubStats.nets} goals</p>
+                        <p>Goal difference {clubStats.goalDiff} goal(s)</p>
+                        <p>Last {clubStats.lastFiveMatches.length}{' '}
                             matches: {clubStats.lastFiveMatches.map(status => status + ' ')} </p>
                     </li>
                 )

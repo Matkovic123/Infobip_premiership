@@ -45,7 +45,8 @@ class Premiership extends React.Component {
                         <RoundResults style={roundResultsStyle} matches={this.props.matches}/>
                     </div>
                     <div className="col-lg-6">
-                        <RoundStatistics clubsStatistics={this.props.clubsStatistics} totalRoundsNr={this.props.rounds.length}/>
+                        <RoundStatistics clubsStatistics={this.props.clubsStatistics}
+                                         totalRoundsNr={this.props.rounds.length}/>
                     </div>
                 </div>
             </div>

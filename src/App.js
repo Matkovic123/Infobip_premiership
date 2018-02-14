@@ -5,6 +5,7 @@ import Premiership from "./containers/Premiership/Premiership";
 import logo from './resources/images/pl.png';
 import bgImage from './resources/images/football-on-stadium.jpg';
 
+
 class App extends Component {
     render() {
         return (
@@ -12,10 +13,11 @@ class App extends Component {
                 <div className="container">
                     <div className="vertical-center">
                         <div className="panel panel-default">
-                            <div className="panel-heading">
+                            <div className="page-header">
                                 <div className="row">
-                                    <div className="col-md-6" >
-                                        <h1 className="text-center">English football premiership of 2016/2017</h1>
+                                    <div className="col-md-6">
+                                        <h1 className="text-center"><strong>English football premiership of
+                                            2016/2017</strong></h1>
                                     </div>
                                     <div className="col-md-4">
                                         <img alt="" className="img-responsive img-rounded" src={logo}/>
