@@ -1,11 +1,12 @@
 import {createStatistics, parseMatchesForRound} from "../helpers/helper";
 import * as actions from '../store/actions';
+
 const initialState = {
-        rounds: [],
-        round: 1,
-        matches: [],
-        selectOptions: [],
-        clubsStatistics: []
+    rounds: [],
+    round: 1,
+    matches: [],
+    selectOptions: [],
+    clubsStatistics: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,7 +30,8 @@ const reducer = (state = initialState, action) => {
                 matches: parsedMatches,
                 clubsStatistics: newStatistics
             };
-        default: return state;
+        default:
+            return state;
     }
 
 };

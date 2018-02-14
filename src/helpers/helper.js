@@ -128,17 +128,3 @@ const compareClubs = (a, b) => {
         return 0;
     }
 };
-
-
-// matchStatisticsObject = {//
-//     clubName: 'Lionheart',
-//     nrOfMatches:4,
-//     wins: 2,
-//     losses: 2,
-//     draws: 0,
-//     goals:4,
-//     nets:4,
-//     goalDiff: 0,
-//     points: 12,
-//     position: 1,
-// };

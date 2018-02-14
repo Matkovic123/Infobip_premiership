@@ -45,8 +45,6 @@ class Premiership extends React.Component {
                     <div className="col-lg-6">
                         <RoundResults matches={this.props.matches}/>
                     </div>
-                </div>
-                <div className="row">
                     <div className="col-lg-6">
                         <RoundStatistics clubsStatistics={this.props.clubsStatistics}/>
                     </div>
