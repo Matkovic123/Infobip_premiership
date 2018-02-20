@@ -24,6 +24,9 @@ class Premiership extends React.Component {
                 });
                 this.props.onChangedRound({value: response.data.length})
             })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
 
     render() {
