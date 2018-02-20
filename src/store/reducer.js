@@ -14,18 +14,18 @@ const reducer = (state = initialState, action) => {
         case (actions.GOT_DATA):
             return {
                 ...state,
-                rounds: action.payload.rounds,
-                matches: action.payload.matches,
-                selectOptions: action.payload.selectOptions,
-                clubsStatistics: action.payload.clubsStatistics
+                rounds: action.data.rounds,
+                matches: action.data.matches,
+                selectOptions: action.data.selectOptions,
+                clubsStatistics: action.data.clubsStatistics
             };
         case (actions.CHANGED_ROUND):
-            const parsedMatches = parseMatchesForRound(state.rounds[action.payload - 1]);
-            const currentRounds = state.rounds.slice(0, action.payload);
+            const parsedMatches = parseMatchesForRound(state.rounds[action.nextRound - 1]);
+            const currentRounds = state.rounds.slice(0, action.nextRound);
             const newStatistics = createStatistics(currentRounds);
             return {
                 ...state,
-                round: action.payload,
+                round: action.nextRound,
                 matches: parsedMatches,
                 clubsStatistics: newStatistics
             };

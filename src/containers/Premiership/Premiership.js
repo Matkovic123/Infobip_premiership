@@ -69,8 +69,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        gotData: (data) => dispatch({type: actions.GOT_DATA, payload: data}),
-        onChangedRound: (selectedOption) => dispatch({type: actions.CHANGED_ROUND, payload: selectedOption.value})
+        gotData: (data) => dispatch(actions.gotData(data)),
+        onChangedRound: (selectedOption) => dispatch(actions.changedRound(selectedOption.value))
     };
 };
 
