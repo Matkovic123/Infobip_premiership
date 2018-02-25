@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import RoundResults from "../../components/RoundResults/RoundResults";
 import RoundStatistics from "../../components/RoundStatistics/RoundStatistics";
-import {createOptionsForSelect, createStatistics, parseMatchesForRound} from "../../helpers/helper";
+import {createOptionsForSelect, createStatistics, getClubNames, parseMatchesForRound} from "../../helpers/helper";
 import * as actions from "../../store/actions";
 
 //TODO: spojiti 2 for petlje u jednu u helper.js
@@ -17,9 +17,11 @@ class Premiership extends React.Component {
             .then(response => {
                 const parsedMatches = parseMatchesForRound(response.data[this.props.round - 1]);
                 const selectOptions = createOptionsForSelect(response.data);
-                const clubsStatistics = createStatistics(response.data.slice(0, this.props.round));
+                const clubNames = getClubNames(response.data);
+                const clubsStatistics = createStatistics(response.data.slice(0, this.props.round), clubNames);
                 this.props.gotData({
                     rounds: response.data,
+                    clubNames: clubNames,
                     matches: parsedMatches,
                     selectOptions: selectOptions,
                     clubsStatistics: clubsStatistics

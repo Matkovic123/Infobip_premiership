@@ -4,6 +4,7 @@ import * as actions from '../store/actions';
 const initialState = {
     rounds: [],
     round: 1,
+    clubNames: [],
     matches: [],
     selectOptions: [],
     clubsStatistics: []
@@ -16,13 +17,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 rounds: action.data.rounds,
                 matches: action.data.matches,
+                clubNames: action.data.clubNames,
                 selectOptions: action.data.selectOptions,
                 clubsStatistics: action.data.clubsStatistics
             };
         case (actions.CHANGED_ROUND):
             const parsedMatches = parseMatchesForRound(state.rounds[action.nextRound - 1]);
             const currentRounds = state.rounds.slice(0, action.nextRound);
-            const newStatistics = createStatistics(currentRounds);
+            const newStatistics = createStatistics(currentRounds, state.clubNames);
             return {
                 ...state,
                 round: action.nextRound,

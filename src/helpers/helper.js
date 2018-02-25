@@ -19,8 +19,7 @@ export const createOptionsForSelect = (rounds) => {
     return optionsArray;
 };
 
-export const createStatistics = (rounds) => {
-    let clubsStats = [];
+export const getClubNames = (rounds) => {
     let clubNames = [];
     rounds[0].matches.forEach((match) => {
         const names = Object.keys(match);
@@ -28,6 +27,11 @@ export const createStatistics = (rounds) => {
             clubNames.push(name);
         })
     });
+    return clubNames;
+};
+
+export const createStatistics = (rounds, clubNames) => {
+    let clubsStats = [];
 
     clubNames.forEach(club => {
         let nrOfMatches, matchesStats, scoreStats, points;
@@ -92,7 +96,6 @@ const calculateMatchesStats = (club, rounds) => {
             }
         })
     });
-    debugger;
     lastFiveMatches = lastFiveMatches.slice(lastFiveMatches.length-5, lastFiveMatches.length);
     lastFiveMatches.reverse();
     return {won: wins, lost: loses, draws: draws, lastFiveMatches: lastFiveMatches};
