@@ -37,7 +37,6 @@ export const createStatistics = (rounds, clubNames) => {
         let nrOfMatches, matchesStats, scoreStats, points;
         nrOfMatches = rounds.length;
         matchesStats = calculateMatchesStats(club, rounds);
-        scoreStats = calculateScoreStats(club, rounds);
         points = matchesStats.won * 3 + matchesStats.draws;
         clubsStats.push({
             name: club,
@@ -46,9 +45,9 @@ export const createStatistics = (rounds, clubNames) => {
             lastFiveMatches: matchesStats.lastFiveMatches,
             loses: matchesStats.lost,
             draws: matchesStats.draws,
-            goals: scoreStats.goals,
-            nets: scoreStats.nets,
-            goalDiff: scoreStats.goalDiff,
+            goals: matchesStats.goals,
+            nets: matchesStats.nets,
+            goalDiff: matchesStats.goalDiff,
             points: points
         })
     });
@@ -62,10 +61,20 @@ const calculateMatchesStats = (club, rounds) => {
     let loses = 0;
     let draws = 0;
     let lastFiveMatches = [];
+    let goals = 0;
+    let nets = 0;
     rounds.forEach(round => {
         round.matches.forEach(match => {
             let playingClubs = Object.keys(match);
             let clubsGoals = Object.values(match);
+            if (playingClubs.indexOf(club) === 0) {
+                goals += clubsGoals[0];
+                nets += clubsGoals[1]
+            }
+            else if (playingClubs.indexOf(club) === 1) {
+                goals += clubsGoals[1];
+                nets += clubsGoals[0];
+            }
             if (playingClubs.indexOf(club) === 0) {
                 if (clubsGoals[0] > clubsGoals[1]) {
                     wins++;
@@ -96,48 +105,31 @@ const calculateMatchesStats = (club, rounds) => {
             }
         })
     });
-    lastFiveMatches = lastFiveMatches.slice(lastFiveMatches.length-5, lastFiveMatches.length);
+    lastFiveMatches = lastFiveMatches.slice(lastFiveMatches.length - 5, lastFiveMatches.length);
     lastFiveMatches.reverse();
-    return {won: wins, lost: loses, draws: draws, lastFiveMatches: lastFiveMatches};
-};
-
-const calculateScoreStats = (club, rounds) => {
-    let goals = 0;
-    let nets = 0;
-    rounds.forEach((round) => {
-        round.matches.forEach(match => {
-            let playingClubs = Object.keys(match);
-            let clubsGoals = Object.values(match);
-            if (playingClubs.indexOf(club) === 0) {
-                goals += clubsGoals[0];
-                nets += clubsGoals[1]
-            }
-            else if (playingClubs.indexOf(club) === 1) {
-                goals += clubsGoals[1];
-                nets += clubsGoals[0];
-            }
-        })
-    });
-    return {goals: goals, nets: nets, goalDiff: (goals - nets)}
+    return {
+        won: wins,
+        lost: loses,
+        draws: draws,
+        lastFiveMatches: lastFiveMatches,
+        goals: goals,
+        nets: nets,
+        goalDiff: (goals - nets)
+    };
 };
 
 const compareClubs = (a, b) => {
     if (a.points < b.points)
         return 1;
-    else if (a.points > b.points)
+    if (a.points > b.points)
         return -1;
-    else if (a.points === b.points) {
-        if (a.goalDiff < b.goalDiff)
-            return 1;
-        else if (a.goalDiff > b.goalDiff)
-            return -1;
-        else if (a.goalDiff === b.goalDiff) {
-            if (a.goals < b.goals)
-                return 1;
-            else if (a.goals > b.goals)
-                return -1;
-        }
-    }
+    if (a.goalDiff < b.goalDiff)
+        return 1;
+    if (a.goalDiff > b.goalDiff)
+        return -1;
+    if (a.goals < b.goals)
+        return 1;
+    if (a.goals > b.goals)
+        return -1;
     return 0;
-
 };
