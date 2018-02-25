@@ -92,7 +92,9 @@ const calculateMatchesStats = (club, rounds) => {
             }
         })
     });
-    lastFiveMatches = lastFiveMatches.slice(0, 5);
+    debugger;
+    lastFiveMatches = lastFiveMatches.slice(lastFiveMatches.length-5, lastFiveMatches.length);
+    lastFiveMatches.reverse();
     return {won: wins, lost: loses, draws: draws, lastFiveMatches: lastFiveMatches};
 };
 

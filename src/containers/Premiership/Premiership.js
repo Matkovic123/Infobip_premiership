@@ -8,6 +8,8 @@ import RoundStatistics from "../../components/RoundStatistics/RoundStatistics";
 import {createOptionsForSelect, createStatistics, parseMatchesForRound} from "../../helpers/helper";
 import * as actions from "../../store/actions";
 
+//TODO: spojiti 2 for petlje u jednu u helper.js
+//TODO: učitati imena klubova jednom
 class Premiership extends React.Component {
 
     componentDidMount() {
